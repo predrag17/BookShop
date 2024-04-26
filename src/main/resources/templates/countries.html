@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Countries</title>
+    <style>
+        table, td {
+            padding: 5px;
+            margin-top: 10px;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Countries</h1>
+
+<div>
+<!--    <th:block sec:authorize="hasRole('ROLE_LIBRARIAN')">-->
+        <a href="/countries/add">
+            <button>Add Country</button>
+        </a>
+<!--    </th:block>-->
+
+    <a href="/authors">
+        <button>Authors</button>
+    </a>
+    <a href="/books">
+        <button>Books</button>
+    </a>
+
+    <a href="/home">
+        <button>Home</button>
+    </a>
+</div>
+
+<div>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Continent</th>
+        </tr>
+        <tr th:each="country : ${countries}">
+            <td th:text="${country.getName()}"></td>
+            <td th:text="${country.getContinent()}"></td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

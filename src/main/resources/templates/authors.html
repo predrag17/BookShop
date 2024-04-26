@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Authors</title>
+    <style>
+        table, td {
+            padding: 5px;
+            margin-top: 10px;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Authors</h1>
+<div>
+<!--    <th:block sec:authorize="hasRole('ROLE_LIBRARIAN')">-->
+        <a href="/authors/add">
+            <button>Add Author</button>
+        </a>
+<!--    </th:block>-->
+
+    <a href="/countries">
+        <button>Countries</button>
+    </a>
+    <a href="/books">
+        <button>Books</button>
+    </a>
+
+    <a href="/home">
+        <button>Home</button>
+    </a>
+</div>
+
+<div>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Country</th>
+        </tr>
+
+        <tr th:each="author : ${authors}">
+            <td th:text="${author.getName()}"></td>
+            <td th:text="${author.getSurname()}"></td>
+            <td th:text="${author.getCountry().getName()}"></td>
+
+            <td>
+<!--                <th:block sec:authorize="hasRole('ROLE_LIBRARIAN')">-->
+                    <form th:method="POST" th:action="@{'/authors/{id}/delete' (id=${author.getId()})}">
+                        <button>Delete</button>
+                    </form>
+                    <a th:href="@{'/authors/{id}/edit' (id=${author.getId()})}">Edit</a>
+<!--                </th:block>-->
+
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Authors Form</title>
+</head>
+<body>
+<h1>Add Author</h1>
+<a href="/authors"><button>Back to Authors</button></a>
+<form method="POST" th:action="@{ ${author != null} ? '/authors/' + ${author.getId()} : '/authors' }">
+    <input type="text"  name="name" th:value="${author?.getName()}" required placeholder="Authors Name"/>
+    <input type="text" name="surname" th:value="${author?.getSurname()}" required placeholder="Authors Surname"/>
+    <select name="countryId" required>
+        <option
+                th:each="country : ${countries}"
+                th:value="${country.getId()}"
+                th:text="${country.getName()}"
+                th:selected="${author?.getCountry()?.getName()?.equals(country.getName())}"
+        >
+
+        </option>
+    </select>
+
+    <button type="submit" value="Submit">Submit</button>
+</form>
+</body>
+</html>

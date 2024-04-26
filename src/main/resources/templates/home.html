@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <style>
+        div {
+            margin: 10px 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>Library</h1>
+<th:block sec:authorize="isAuthenticated()">
+    <p th:text="'Welcome user: ' + ${#authentication.getName()}"></p>
+</th:block>
+
+<div class="container-1">
+    <a href="/books">
+        <button>Books</button>
+    </a>
+
+    <a href="/authors">
+        <button>Authors</button>
+    </a>
+
+    <a href="/countries">
+        <button>Countries</button>
+    </a>
+</div>
+
+<div class="container-2">
+    <a href="/login">
+        <button>Login</button>
+    </a>
+
+    <a href="/logout">
+        <button>Logout</button>
+    </a>
+</div>
+</body>
+</html>

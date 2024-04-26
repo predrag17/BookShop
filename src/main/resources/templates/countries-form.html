@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Countries Form</title>
+    <style>
+        input {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Add Country</h1>
+
+<a href="/countries"><button>Back to Countries</button></a>
+
+<form action="/countries/add" method="POST">
+    <input type="text" name="name" required placeholder="Country Name..."/><br/>
+    <input type="text" name="continent" required placeholder="Country Continent..."/><br/>
+    <button type="submit" value="Submit">Submit</button>
+</form>
+</body>
+</html>

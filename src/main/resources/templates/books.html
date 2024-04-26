@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+    <style>
+        table, td {
+            padding: 5px;
+            margin-top: 10px;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Books</h1>
+
+<div>
+<!--    <th:block sec:authorize="hasRole('ROLE_LIBRARIAN')">-->
+        <a href="/books/add">
+            <button>Add Book</button>
+        </a>
+<!--    </th:block>-->
+
+    <a href="/authors">
+        <button>Authors</button>
+    </a>
+
+    <a href="/countries">
+        <button>Countries</button>
+    </a>
+
+    <a href="/home">
+        <button>Home</button>
+    </a>
+</div>
+
+<div>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Author</th>
+            <th>Available copies</th>
+        </tr>
+
+        <tr th:each="book : ${books}">
+            <td th:text="${book.getName()}"></td>
+            <td th:text="${book.getCategory()}"></td>
+            <td th:text="${book.getAuthor().getName()}"></td>
+            <td th:text="${book.getAvailableCopies()}"></td>
+            <td>
+<!--                <th:block sec:authorize="hasRole('ROLE_LIBRARIAN')">-->
+                    <form th:method="POST" th:action="@{'/books/{id}/delete' (id=${book.getId()})}">
+                        <button>Delete</button>
+                    </form>
+
+                    <a th:href="@{'/books/{id}/edit' (id=${book.getId()})}">Edit</a>
+<!--                </th:block>-->
+
+                <th:block sec:authorize="hasRole('ROLE_LIBRARIAN')">
+                    <th:block th:if="${book.getRented()}">
+                        <form th:method="POST" th:action="@{'/books/{id}/rent' (id=${book.getId()})}">
+                            <button>Rent</button>
+                        </form>
+                    </th:block>
+                    <th:block th:if="${not book.getRented()}">
+                        <form th:method="POST" th:action="@{'/books/{id}/unrent' (id=${book.getId()})}">
+                            <button>Unrent</button>
+                        </form>
+                    </th:block>
+                </th:block>
+
+                <th:block sec:authorize="!hasRole('ROLE_LIBRARIAN')">
+                    <th:block th:if="${book.getRented()}">
+                        <form th:method="POST" th:action="@{'/books/{id}/rent' (id=${book.getId()})}">
+                            <button disabled>Rent</button>
+                        </form>
+                    </th:block>
+                    <th:block th:if="${not book.getRented()}">
+                        <form th:method="POST" th:action="@{'/books/{id}/unrent' (id=${book.getId()})}">
+                            <button disabled>Unrent</button>
+                        </form>
+                    </th:block>
+                </th:block>
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

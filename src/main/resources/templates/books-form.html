@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Books Form</title>
+    <style>
+        input, select {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>Books</h1>
+
+<a href="/books">
+    <button>Back to Books</button>
+</a>
+
+<form method="POST" th:action="@{ ${book != null} ? '/books/' + ${book.getId()} : '/books' }">
+    <input type="text" name="name" th:value="${book?.getName()}" required placeholder="Book Name"/><br/>
+    <select name="category" required>
+        <option value="">Categories</option>
+        <option
+                th:each="category : ${categories}"
+                th:value="${category}"
+                th:text="${category}"
+                th:selected="${book?.getCategory()?.equals(category)}"
+        >
+        </option>
+    </select><br/>
+    <select name="authorId" required>
+        <option value="">Authors</option>
+        <option
+                th:each="author : ${authors}"
+                th:value="${author.getId()}"
+                th:text="${author.getName()}"
+                th:selected="${book?.getAuthor()?.getName()?.equals(author.getName())}"
+        >
+        </option>
+    </select><br/>
+    <input type="number" min="0" max="10000" name="availableCopies" th:value="${book?.getAvailableCopies()}" required
+           placeholder="Available Copies"/><br/>
+
+    <button type="submit" value="Submit">Submit</button>
+</form>
+</body>
+</html>
